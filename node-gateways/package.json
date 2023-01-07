@@ -1,0 +1,11 @@
+{
+	"name": "microservices-gateways",
+	"version": "0.0.1",
+	"description": "Gateway for all services in go microservices",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "restuwahyu13",
+	"license": "MIT",
+	"dependencies": {}
+}

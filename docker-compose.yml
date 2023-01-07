@@ -1,0 +1,81 @@
+version: '3'
+services:
+  ##############################
+  # DATABASE SERVICE ENVIRONMENT
+  ##############################
+  database:
+    image: postgres:14-alpine
+    restart: always
+    healthcheck:
+      test: 'env | grep SHELL_SESSION_ID'
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
+    env_file: .env
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - microservice_networks
+  ##############################
+  # CACHING SERVICE ENVIRONMENT
+  ##############################
+  caching:
+    image: redis:6.2.1-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    restart: always
+    healthcheck:
+      test: 'env | grep SHELL_SESSION_ID'
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
+    env_file: .env
+    ports:
+      - 6379:6379
+    volumes:
+      - caching:/var/lib/redis/data
+    networks:
+      - microservice_networks
+  #############################
+  # MESSAGE BROKER SERVICE
+  #############################
+  broker:
+    image: rabitmq:3-management-alpine
+    restart: always
+    healthcheck:
+      test: 'env | grep SHELL_SESSION_ID'
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
+    env_file:
+      - .env
+    environment:
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+      - broker:/var/lib/rabbitmq/data
+    networks:
+      - microservice_networks
+#############################
+# VOLUME PERSISTENT DATA
+#############################
+volumes:
+  database:
+  caching:
+  broker:
+#############################
+# NETWORKS SHARING GROUP
+#############################
+networks:
+  microservice_networks:

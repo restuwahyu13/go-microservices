@@ -1,0 +1,28 @@
+syntax = "proto3";
+package products;
+
+option go_package = ".;pb";
+import "google/protobuf/any.proto";
+
+service Users {
+  rpc LoginAuth(LoginDTO) returns (ApiResponse) {}
+  rpc RegisterAuth(RegisterDTO) returns (ApiResponse) {}
+}
+
+message LoginDTO {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterDTO {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 4;
+  string password = 5;
+}
+
+message ApiResponse {
+  int32 stat_code = 1;
+  string stat_message = 2;
+  optional google.protobuf.Any data = 3;
+}
