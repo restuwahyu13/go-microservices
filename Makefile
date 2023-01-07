@@ -15,3 +15,13 @@ protoc-gen-js:
 	--plugin=${HOME}/.nvm/versions/node/v16.15.0/bin/protoc-gen-ts_proto \
 	--ts_proto_out=${PWD}/node-gateways/src/schemas
 	--ts_proto_opt=nestJs=true,addNestjsRestParameter=true,addGrpcMetadata=true
+
+.PHONY: gateway
+gateway:
+	cd node-gateways && nodemon -V -e ts,js,json,yml -w node-gateways/**/* -x npm run start
+
+.PHONY: service
+service:
+ifdef type
+	cd go-microservices && nodemon -V -e go,json,yml -w go-microservices/**/* -x go run ./domains/${type} --signal SIGTERM
+endif

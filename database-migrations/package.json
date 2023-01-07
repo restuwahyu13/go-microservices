@@ -3,14 +3,29 @@
 	"version": "0.0.1",
 	"description": "Database migrations and seeders for all services in go microservices",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"seed:config": "./node_modules/typeorm-seeding/dist/cli.js config",
+		"seed:runma": "./node_modules/typeorm-seeding/dist/cli.js seed",
+		"mig:drop": "./node_modules/typeorm/cli.js schema:drop",
+		"mig:run": "./node_modules/typeorm/cli.js migration:run",
+		"mig:rollback": "./node_modules/typeorm/cli.js migration:revert",
+		"mig:list": "./node_modules/typeorm/cli.js migration:show",
+		"mig:make": "./node_modules/typeorm/cli.js migration:create --name --ext js",
+		"seed:run": "npm run mig:drop && npm run mig:run && npm run seed:runma"
 	},
-	"author": "restuwahyu13",
+	"author": {
+		"name": "Restu Wahyu Saputra",
+		"email": "restuwahyu13@gmail.com",
+		"url": "https://github.com/restuwahyu13"
+	},
 	"license": "MIT",
 	"dependencies": {
 		"dotenv": "^16.0.3",
 		"pg": "^8.7.3",
 		"typeorm": "^0.2.41",
 		"typeorm-seeding": "^1.6.1"
+	},
+	"engines": {
+		"node": ">= v14.x.x",
+		"npm": ">= v6.x.x"
 	}
 }
