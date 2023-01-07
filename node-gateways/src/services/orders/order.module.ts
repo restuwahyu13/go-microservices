@@ -4,7 +4,7 @@ import path from 'path'
 
 import { OrdersService } from '@services/orders/order.service'
 import { OrdersController } from '@services/orders/order.controller'
-import { protobufPackage } from '@schemas/proto-files/js/orders'
+import { protobufPackage } from '@schemas/proto-files/orders'
 
 @Module({
 	controllers: [OrdersController],
@@ -16,7 +16,7 @@ import { protobufPackage } from '@schemas/proto-files/js/orders'
 				options: {
 					package: protobufPackage,
 					url: 'localhost:4001',
-					protoPath: path.join(process.cwd(), '../proto-files/js/orders.proto')
+					protoPath: path.join(process.cwd(), '../proto-files/orders.proto')
 				}
 			}
 		])

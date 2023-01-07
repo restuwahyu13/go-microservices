@@ -1,20 +1,20 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Any } from "../../google/protobuf/any";
-import { Empty } from "../../google/protobuf/empty";
+import { Any } from "../google/protobuf/any";
+import { Empty } from "../google/protobuf/empty";
 
-export const protobufPackage = "orders";
+export const protobufPackage = "products";
 
 export enum ServiceName {
-  PingOrders = 0,
+  PingProducts = 0,
   UNRECOGNIZED = -1,
 }
 
 export function serviceNameFromJSON(object: any): ServiceName {
   switch (object) {
     case 0:
-    case "PingOrders":
-      return ServiceName.PingOrders;
+    case "PingProducts":
+      return ServiceName.PingProducts;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -24,8 +24,8 @@ export function serviceNameFromJSON(object: any): ServiceName {
 
 export function serviceNameToJSON(object: ServiceName): string {
   switch (object) {
-    case ServiceName.PingOrders:
-      return "PingOrders";
+    case ServiceName.PingProducts:
+      return "PingProducts";
     case ServiceName.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -105,21 +105,21 @@ export const GrpcResponse = {
   },
 };
 
-export interface OrdersService {
-  PingOrders(request: Empty): Promise<GrpcResponse>;
+export interface ProductsService {
+  PingProducts(request: Empty): Promise<GrpcResponse>;
 }
 
-export class OrdersServiceClientImpl implements OrdersService {
+export class ProductsServiceClientImpl implements ProductsService {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "orders.OrdersService";
+    this.service = opts?.service || "products.ProductsService";
     this.rpc = rpc;
-    this.PingOrders = this.PingOrders.bind(this);
+    this.PingProducts = this.PingProducts.bind(this);
   }
-  PingOrders(request: Empty): Promise<GrpcResponse> {
+  PingProducts(request: Empty): Promise<GrpcResponse> {
     const data = Empty.encode(request).finish();
-    const promise = this.rpc.request(this.service, "PingOrders", data);
+    const promise = this.rpc.request(this.service, "PingProducts", data);
     return promise.then((data) => GrpcResponse.decode(new _m0.Reader(data)));
   }
 }

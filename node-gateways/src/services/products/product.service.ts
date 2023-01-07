@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit, Inject } from '@nestjs/common'
 import { ClientGrpc, GrpcMethod } from '@nestjs/microservices'
 
-import { GrpcResponse, ProductsService as ProductsRpcService, ServiceName, serviceNameToJSON } from '@schemas/proto-files/js/products'
+import { GrpcResponse, ProductsService as ProductsRpcService, ServiceName, serviceNameToJSON } from '@schemas/proto-files/products'
 import { Empty } from '@schemas/google/protobuf/empty'
 
 @Injectable()

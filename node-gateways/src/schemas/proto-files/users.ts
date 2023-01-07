@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Any } from "../../google/protobuf/any";
+import { Any } from "../google/protobuf/any";
 
 export const protobufPackage = "users";
 
