@@ -1,7 +1,7 @@
 syntax = "proto3";
 package users;
 
-option go_package = ".;pb";
+option go_package = "./users";
 import "google/protobuf/any.proto";
 
 service Users {

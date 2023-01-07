@@ -1,167 +1,49 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../google/protobuf/any";
+import { Empty } from "../../google/protobuf/empty";
 
 export const protobufPackage = "orders";
 
-export interface LoginDTO {
-  email: string;
-  password: string;
+export enum ServiceName {
+  PingOrders = 0,
+  UNRECOGNIZED = -1,
 }
 
-export interface RegisterDTO {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+export function serviceNameFromJSON(object: any): ServiceName {
+  switch (object) {
+    case 0:
+    case "PingOrders":
+      return ServiceName.PingOrders;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ServiceName.UNRECOGNIZED;
+  }
 }
 
-export interface ApiResponse {
+export function serviceNameToJSON(object: ServiceName): string {
+  switch (object) {
+    case ServiceName.PingOrders:
+      return "PingOrders";
+    case ServiceName.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export interface GrpcResponse {
   statCode: number;
   statMessage: string;
   data?: Any | undefined;
 }
 
-function createBaseLoginDTO(): LoginDTO {
-  return { email: "", password: "" };
-}
-
-export const LoginDTO = {
-  encode(message: LoginDTO, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.email !== "") {
-      writer.uint32(10).string(message.email);
-    }
-    if (message.password !== "") {
-      writer.uint32(18).string(message.password);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): LoginDTO {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseLoginDTO();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.email = reader.string();
-          break;
-        case 2:
-          message.password = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): LoginDTO {
-    return {
-      email: isSet(object.email) ? String(object.email) : "",
-      password: isSet(object.password) ? String(object.password) : "",
-    };
-  },
-
-  toJSON(message: LoginDTO): unknown {
-    const obj: any = {};
-    message.email !== undefined && (obj.email = message.email);
-    message.password !== undefined && (obj.password = message.password);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<LoginDTO>, I>>(object: I): LoginDTO {
-    const message = createBaseLoginDTO();
-    message.email = object.email ?? "";
-    message.password = object.password ?? "";
-    return message;
-  },
-};
-
-function createBaseRegisterDTO(): RegisterDTO {
-  return { firstName: "", lastName: "", email: "", password: "" };
-}
-
-export const RegisterDTO = {
-  encode(message: RegisterDTO, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.firstName !== "") {
-      writer.uint32(10).string(message.firstName);
-    }
-    if (message.lastName !== "") {
-      writer.uint32(18).string(message.lastName);
-    }
-    if (message.email !== "") {
-      writer.uint32(34).string(message.email);
-    }
-    if (message.password !== "") {
-      writer.uint32(42).string(message.password);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): RegisterDTO {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseRegisterDTO();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.firstName = reader.string();
-          break;
-        case 2:
-          message.lastName = reader.string();
-          break;
-        case 4:
-          message.email = reader.string();
-          break;
-        case 5:
-          message.password = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): RegisterDTO {
-    return {
-      firstName: isSet(object.firstName) ? String(object.firstName) : "",
-      lastName: isSet(object.lastName) ? String(object.lastName) : "",
-      email: isSet(object.email) ? String(object.email) : "",
-      password: isSet(object.password) ? String(object.password) : "",
-    };
-  },
-
-  toJSON(message: RegisterDTO): unknown {
-    const obj: any = {};
-    message.firstName !== undefined && (obj.firstName = message.firstName);
-    message.lastName !== undefined && (obj.lastName = message.lastName);
-    message.email !== undefined && (obj.email = message.email);
-    message.password !== undefined && (obj.password = message.password);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<RegisterDTO>, I>>(object: I): RegisterDTO {
-    const message = createBaseRegisterDTO();
-    message.firstName = object.firstName ?? "";
-    message.lastName = object.lastName ?? "";
-    message.email = object.email ?? "";
-    message.password = object.password ?? "";
-    return message;
-  },
-};
-
-function createBaseApiResponse(): ApiResponse {
+function createBaseGrpcResponse(): GrpcResponse {
   return { statCode: 0, statMessage: "", data: undefined };
 }
 
-export const ApiResponse = {
-  encode(message: ApiResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const GrpcResponse = {
+  encode(message: GrpcResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.statCode !== 0) {
       writer.uint32(8).int32(message.statCode);
     }
@@ -174,10 +56,10 @@ export const ApiResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ApiResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GrpcResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseApiResponse();
+    const message = createBaseGrpcResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -198,7 +80,7 @@ export const ApiResponse = {
     return message;
   },
 
-  fromJSON(object: any): ApiResponse {
+  fromJSON(object: any): GrpcResponse {
     return {
       statCode: isSet(object.statCode) ? Number(object.statCode) : 0,
       statMessage: isSet(object.statMessage) ? String(object.statMessage) : "",
@@ -206,7 +88,7 @@ export const ApiResponse = {
     };
   },
 
-  toJSON(message: ApiResponse): unknown {
+  toJSON(message: GrpcResponse): unknown {
     const obj: any = {};
     message.statCode !== undefined && (obj.statCode = Math.round(message.statCode));
     message.statMessage !== undefined && (obj.statMessage = message.statMessage);
@@ -214,8 +96,8 @@ export const ApiResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ApiResponse>, I>>(object: I): ApiResponse {
-    const message = createBaseApiResponse();
+  fromPartial<I extends Exact<DeepPartial<GrpcResponse>, I>>(object: I): GrpcResponse {
+    const message = createBaseGrpcResponse();
     message.statCode = object.statCode ?? 0;
     message.statMessage = object.statMessage ?? "";
     message.data = (object.data !== undefined && object.data !== null) ? Any.fromPartial(object.data) : undefined;
@@ -223,30 +105,22 @@ export const ApiResponse = {
   },
 };
 
-export interface Users {
-  LoginAuth(request: LoginDTO): Promise<ApiResponse>;
-  RegisterAuth(request: RegisterDTO): Promise<ApiResponse>;
+export interface OrdersService {
+  PingOrders(request: Empty): Promise<GrpcResponse>;
 }
 
-export class UsersClientImpl implements Users {
+export class OrdersServiceClientImpl implements OrdersService {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "orders.Users";
+    this.service = opts?.service || "orders.OrdersService";
     this.rpc = rpc;
-    this.LoginAuth = this.LoginAuth.bind(this);
-    this.RegisterAuth = this.RegisterAuth.bind(this);
+    this.PingOrders = this.PingOrders.bind(this);
   }
-  LoginAuth(request: LoginDTO): Promise<ApiResponse> {
-    const data = LoginDTO.encode(request).finish();
-    const promise = this.rpc.request(this.service, "LoginAuth", data);
-    return promise.then((data) => ApiResponse.decode(new _m0.Reader(data)));
-  }
-
-  RegisterAuth(request: RegisterDTO): Promise<ApiResponse> {
-    const data = RegisterDTO.encode(request).finish();
-    const promise = this.rpc.request(this.service, "RegisterAuth", data);
-    return promise.then((data) => ApiResponse.decode(new _m0.Reader(data)));
+  PingOrders(request: Empty): Promise<GrpcResponse> {
+    const data = Empty.encode(request).finish();
+    const promise = this.rpc.request(this.service, "PingOrders", data);
+    return promise.then((data) => GrpcResponse.decode(new _m0.Reader(data)));
   }
 }
 

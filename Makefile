@@ -1,13 +1,20 @@
 .PHONY: protoc-cli-install
 protoc-cli-install:
-	go install -v google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	go install -v google.golang.org/protobuf/cmd/protoc-gen-go@latest \
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest \
 	npm i ts-proto -g
 
 .PHONY: protoc-gen-go
 protoc-gen-go:
-	protoc --proto_path= ./proto-files/js/go/*.proto \
+	rm -rf ${PWD}/go-microservices/internals/schemas/**/*
+	\
+	protoc --proto_path= ./proto-files/go/*.proto \
 	--plugin=${HOME}/go/bin/protoc-gen-go \
 	--go_out="${PWD}/go-microservices/internals/schemas"
+	\
+	protoc --proto_path= ./proto-files/go/*.proto \
+	--plugin=${HOME}/go/bin/protoc-gen-go-grpc \
+	--go-grpc_out="${PWD}/go-microservices/internals/schemas"
 
 .PHONY: protoc-gen-js
 protoc-gen-js:
@@ -18,10 +25,10 @@ protoc-gen-js:
 
 .PHONY: gateway
 gateway:
-	cd node-gateways && nodemon -V -e ts,js,json,yml -w node-gateways/**/* -x npm run start
+	cd node-gateways && npm run start:dev
 
 .PHONY: service
 service:
 ifdef type
-	cd go-microservices && nodemon -V -e go,json,yml -w go-microservices/**/* -x go run ./domains/${type} --signal SIGTERM
+	cd go-microservices && nodemon -V -e go -w ./go-microservices -i main -x go run ./domains/${type} --signal SIGTERM
 endif

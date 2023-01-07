@@ -1,11 +1,17 @@
-import { HttpStatus as status, Injectable } from '@nestjs/common'
+import { Injectable, HttpStatus as status } from '@nestjs/common'
+import { ClientGrpc, GrpcMethod } from '@nestjs/microservices'
+
+interface ApiResponse {
+	stat_code: number
+	stat_message: string
+}
 
 @Injectable()
 export class AppService {
-	getHello(): Record<string, any> {
+	PingGateways(): ApiResponse {
 		return {
 			stat_code: status.OK,
-			stat_message: 'Microservices Gateway'
+			stat_message: 'Gateway Pong'
 		}
 	}
 }

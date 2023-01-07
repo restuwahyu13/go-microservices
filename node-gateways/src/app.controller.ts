@@ -7,7 +7,7 @@ export class AppController {
 
 	@Version('1')
 	@Get()
-	getHello(): Record<string, any> {
-		return this.appService.getHello()
+	PingOrders(): Record<string, any> {
+		return this.appService.PingGateways()
 	}
 }

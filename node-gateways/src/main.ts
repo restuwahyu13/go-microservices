@@ -60,7 +60,7 @@ class Application {
 	}
 
 	private serverListening(): void {
-		this.app.listen(this.port, () => this.logger.log(`server is running on port ${this.port}`))
+		this.app.listen(this.port, () => this.logger.log(`Server is running on port ${this.port}`))
 	}
 
 	public async bootstraping(): Promise<void> {
@@ -71,7 +71,7 @@ class Application {
 	}
 }
 
-// boostraping nestjs application
+// boostraping nestjs microservices application
 ;(() => {
 	const app: InstanceType<typeof Application> = reusify(Application).get()
 	app.bootstraping()

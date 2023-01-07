@@ -1,15 +1,32 @@
 package main
 
 import (
-	"encoding/json"
+	"context"
+	"net"
 	"net/http"
+
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/emptypb"
+
+	"github.com/restuwahyu13/go-microservices/internals/schemas/products"
 )
 
-func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := map[string]string{"name": "Service Products"}
-		json.NewEncoder(w).Encode(data)
-	})
+type productsService struct {
+	products.UnimplementedProductsServiceServer
+}
 
-	http.ListenAndServe(":4002", nil)
+func main() {
+	ls, _ := net.Listen("tcp", ":4002")
+	server := grpc.NewServer()
+
+	products.RegisterProductsServiceServer(server, &productsService{})
+	server.Serve(ls)
+}
+
+func (h *productsService) PingProducts(ctx context.Context, in *emptypb.Empty) (*products.GrpcResponse, error) {
+	res := new(products.GrpcResponse)
+	res.StatCode = http.StatusOK
+	res.StatMessage = "Products Service Pong"
+
+	return res, nil
 }
