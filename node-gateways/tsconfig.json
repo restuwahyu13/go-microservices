@@ -1,0 +1,41 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"outDir": "dist",
+		"target": "ESNext",
+		"module": "CommonJS",
+		"moduleResolution": "Node",
+		"types": ["node"],
+		"paths": {
+			"@/*": ["*"],
+			"@helpers/*": ["helpers/*"],
+			"@libs/*": ["libs/*"],
+			"@middlewares/*": ["middlewares/*"],
+			"@schemas/*": ["schemas/*"],
+			"@services/*": ["services/*"]
+		},
+		"strict": true,
+		"importHelpers": true,
+		"downlevelIteration": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"allowUmdGlobalAccess": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"resolveJsonModule": true,
+		"pretty": true,
+		"allowJs": true,
+		"declaration": false,
+		"removeComments": true,
+		"sourceMap": false,
+		"strictNullChecks": false,
+		"strictBindCallApply": false,
+		"forceConsistentCasingInFileNames": false,
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"noFallthroughCasesInSwitch": false
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist", "coverage"]
+}
