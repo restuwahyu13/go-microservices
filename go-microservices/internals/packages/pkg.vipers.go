@@ -4,7 +4,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Viper() error {
+func NewViper() error {
 	viper.SetConfigFile(".env")
 	viper.AutomaticEnv()
 
