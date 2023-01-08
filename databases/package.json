@@ -3,13 +3,13 @@
 	"version": "0.0.1",
 	"description": "Database migrations and seeders for all services in go microservices",
 	"scripts": {
-		"seed:config": "./node_modules/typeorm-seeding/dist/cli.js config",
-		"seed:runma": "./node_modules/typeorm-seeding/dist/cli.js seed",
-		"mig:drop": "./node_modules/typeorm/cli.js schema:drop",
-		"mig:run": "./node_modules/typeorm/cli.js migration:run",
-		"mig:rollback": "./node_modules/typeorm/cli.js migration:revert",
-		"mig:list": "./node_modules/typeorm/cli.js migration:show",
-		"mig:make": "./node_modules/typeorm/cli.js migration:create --name --ext js",
+		"seed:config": "node ./node_modules/typeorm-seeding/dist/cli.js config",
+		"seed:runma": "node ./node_modules/typeorm-seeding/dist/cli.js seed",
+		"mig:drop": "node ./node_modules/typeorm/cli.js schema:drop",
+		"mig:run": "node ./node_modules/typeorm/cli.js migration:run",
+		"mig:rollback": "node ./node_modules/typeorm/cli.js migration:revert",
+		"mig:list": "node ./node_modules/typeorm/cli.js migration:show",
+		"mig:make": "node ./node_modules/typeorm/cli.js migration:create -o true --name",
 		"seed:run": "npm run mig:drop && npm run mig:run && npm run seed:runma"
 	},
 	"author": {
