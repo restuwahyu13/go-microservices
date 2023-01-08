@@ -1,5 +1,4 @@
 import { Injectable, HttpStatus as status } from '@nestjs/common'
-import { ClientGrpc, GrpcMethod } from '@nestjs/microservices'
 
 interface ApiResponse {
 	stat_code: number

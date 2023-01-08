@@ -15,8 +15,8 @@ import { protobufPackage } from '@schemas/proto-files/orders'
 				transport: Transport.GRPC,
 				options: {
 					package: protobufPackage,
-					url: 'localhost:4001',
-					protoPath: path.join(process.cwd(), '../proto-files/orders.proto')
+					url: process.env.MS_ORDERS_HOST,
+					protoPath: path.join(process.cwd(), '../protofiles/orders.proto')
 				}
 			}
 		])

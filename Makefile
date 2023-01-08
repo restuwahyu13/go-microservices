@@ -8,24 +8,24 @@ protoc-cli-install:
 protoc-gen-go:
 	rm -rf ${PWD}/go-microservices/internals/schemas/**/*
 	\
-	protoc --proto_path= ./proto-files/*.proto \
+	protoc --proto_path= ./protofiles/*.proto \
 	--plugin=${HOME}/go/bin/protoc-gen-go \
 	--go_out="${PWD}/go-microservices/internals/schemas"
 	\
-	protoc --proto_path= ./proto-files/*.proto \
+	protoc --proto_path= ./protofiles/*.proto \
 	--plugin=${HOME}/go/bin/protoc-gen-go-grpc \
 	--go-grpc_out="${PWD}/go-microservices/internals/schemas"
 
 .PHONY: protoc-gen-js
 protoc-gen-js:
-	protoc --proto_path= ./proto-files/*.proto \
+	protoc --proto_path= ./protofiles/*.proto \
 	--plugin=${HOME}/.nvm/versions/node/v16.15.0/bin/protoc-gen-ts_proto \
-	--ts_proto_out=${PWD}/node-gateways/src/schemas
+	--ts_proto_out=${PWD}/gateways/src/schemas
 	--ts_proto_opt=nestJs=true,addNestjsRestParameter=true,addGrpcMetadata=true
 
 .PHONY: gateway
 gateway:
-	cd node-gateways && npm run start:dev
+	cd gateways && npm run start:dev
 
 .PHONY: service
 service:

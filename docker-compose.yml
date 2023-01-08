@@ -46,7 +46,7 @@ services:
   # MESSAGE BROKER SERVICE
   #############################
   broker:
-    image: rabitmq:3-management-alpine
+    image: rabbitmq:3-management-alpine
     restart: always
     healthcheck:
       test: 'env | grep SHELL_SESSION_ID'
@@ -67,6 +67,22 @@ services:
       - broker:/var/lib/rabbitmq/data
     networks:
       - microservice_networks
+  #############################
+  # DISCOVERY SERVICE
+  #############################
+  discovery:
+    image: netflixoss/eureka
+    restart: always
+    healthcheck:
+      test: 'env | grep SHELL_SESSION_ID'
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
+    ports:
+      - '8080:8080'
+    networks:
+      - microservice_networks
 #############################
 # VOLUME PERSISTENT DATA
 #############################
@@ -74,6 +90,7 @@ volumes:
   database:
   caching:
   broker:
+  discovery:
 #############################
 # NETWORKS SHARING GROUP
 #############################
